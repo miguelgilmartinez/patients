@@ -48,6 +48,41 @@ class Patient
      */
     private $dateOfBirth;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="hobbies")
+     */
+    private $activity;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $hobbies;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $emergencyPhone;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $emergencyName;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $datetimeAdded;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $friendPhone;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $operatorPhone;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,7 +96,6 @@ class Patient
     public function setPatientUuid($patientUUID): self
     {
         $this->patientUUID = $patientUUID;
-
         return $this;
     }
 
@@ -73,7 +107,6 @@ class Patient
     public function setUser(string $user): self
     {
         $this->user = $user;
-
         return $this;
     }
 
@@ -85,7 +118,6 @@ class Patient
     public function setTest($test): self
     {
         $this->test = $test;
-
         return $this;
     }
 
@@ -133,6 +165,88 @@ class Patient
     public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
     {
         $this->dateOfBirth = $dateOfBirth;
+        return $this;
+    }
+
+    public function getActivity(): ?Activity
+    {
+        return $this->activity;
+    }
+
+    public function setActivity(?Activity $activity): self
+    {
+        $this->activity = $activity;
+        return $this;
+    }
+
+    public function getHobbies(): ?string
+    {
+        return $this->hobbies;
+    }
+
+    public function setHobbies(?string $hobbies): self
+    {
+        $this->hobbies = $hobbies;
+
+        return $this;
+    }
+
+    public function getEmergencyPhone(): ?string
+    {
+        return $this->emergencyPhone;
+    }
+
+    public function setEmergencyPhone(?string $emergencyPhone): self
+    {
+        $this->emergencyPhone = $emergencyPhone;
+
+        return $this;
+    }
+
+    public function getEmergencyName(): ?string
+    {
+        return $this->emergencyName;
+    }
+
+    public function setEmergencyName(string $emergencyName): self
+    {
+        $this->emergencyName = $emergencyName;
+
+        return $this;
+    }
+
+    public function getDatetimeAdded(): ?\DateTimeInterface
+    {
+        return $this->datetimeAdded;
+    }
+
+    public function setDatetimeAdded(\DateTimeInterface $datetimeAdded): self
+    {
+        $this->datetimeAdded = $datetimeAdded;
+
+        return $this;
+    }
+
+    public function getFriendPhone(): ?string
+    {
+        return $this->friendPhone;
+    }
+
+    public function setFriendPhone(?string $friendPhone): self
+    {
+        $this->friendPhone = $friendPhone;
+
+        return $this;
+    }
+
+    public function getOperatorPhone(): ?string
+    {
+        return $this->operatorPhone;
+    }
+
+    public function setOperatorPhone(string $operatorPhone): self
+    {
+        $this->operatorPhone = $operatorPhone;
 
         return $this;
     }

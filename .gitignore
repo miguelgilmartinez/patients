@@ -9,3 +9,9 @@
 /vendor/
 ###< symfony/framework-bundle ###
 /nbproject/private/
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+/bin

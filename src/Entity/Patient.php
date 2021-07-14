@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity; 
 
 use App\Repository\PatientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Polyfill\Uuid\Uuid as Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=PatientRepository::class)
@@ -12,21 +15,15 @@ class Patient
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
      * @ORM\Column(type="uuid")
      */
     private $patientUUID;
 
     /**
-     * @ORM\Column(type="binary")
-     * Maps to User.userUUID 
+     * @ORM\Column(type="uuid")
+     * Maps to User.userUUID
      */
-    private $user;
+    private $userUUID;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -83,9 +80,15 @@ class Patient
      */
     private $operatorPhone;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity=HealthData::class, mappedBy="patient", orphanRemoval=true)
+     */
+    private $healthData;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->patientUUID = Uuid::v4();
+        $this->healthData = new ArrayCollection();
     }
 
     public function getPatientUuid()
@@ -101,12 +104,12 @@ class Patient
 
     public function getUser(): ?string
     {
-        return $this->user;
+        return $this->userUUID;
     }
 
-    public function setUser(string $user): self
+    public function setUser(Uuid $userUUID): self
     {
-        $this->user = $user;
+        $this->userUUID = $userUUID;
         return $this;
     }
 
@@ -129,7 +132,6 @@ class Patient
     public function setEmail(?string $email): self
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -141,7 +143,6 @@ class Patient
     public function setTimeZone(string $timeZone): self
     {
         $this->timeZone = $timeZone;
-
         return $this;
     }
 
@@ -247,6 +248,36 @@ class Patient
     public function setOperatorPhone(string $operatorPhone): self
     {
         $this->operatorPhone = $operatorPhone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HealthData[]
+     */
+    public function getHealthData(): Collection
+    {
+        return $this->healthData;
+    }
+
+    public function addHealthData(HealthData $healthData): self
+    {
+        if (!$this->healthData->contains($healthData)) {
+            $this->healthData[] = $healthData;
+            $healthData->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHealthData(HealthData $healthData): self
+    {
+        if ($this->healthData->removeElement($healthData)) {
+            // set the owning side to null (unless already changed)
+            if ($healthData->getPatient() === $this) {
+                $healthData->setPatient(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,33 @@
+Patient:
+    type: object
+        config:
+            fields:
+                patientUUID:
+                    type: "ID!"
+                userUUID:
+                    type: "ID!"
+                email:
+                    type: "String"
+                timezone:
+                    type: "String"
+                gender:
+                    type: "String"
+                dateOfBirth:
+                    type: "String"
+                activity:
+                    type: "Activity"
+                hobbies:
+                    type: "String"
+                emergencyPhone:
+                    type: "String"
+                emergencyName:
+                    type: "String"
+                dateTimeAdded:
+                    type: "String"
+                friendPhone:
+                    type: "String"
+                operatorPhone:
+                    type: "String"
+                healthData:
+                    type: "[healthData]"
+                    

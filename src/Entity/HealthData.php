@@ -19,9 +19,8 @@ class HealthData
     private $healthDataUUID;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="healthData")
-     * ORM\JoinColumn(nullable=false)
-     * @ORM\JoinColumn(name="patientUUID", referencedColumnName="patientUUID")
+     * @ORM\ManyToOne(targetEntity=Patient::class, inversedBy="health_data")
+     * @ORM\JoinColumn(name="patient", referencedColumnName="patient_uuid", nullable=false)
      */
     private $patient;
 

@@ -30,7 +30,7 @@ class Activity
     /**
      * @ORM\OneToMany(targetEntity=Patient::class, mappedBy="activity")
      */
-    private $activity;
+    private $patient;
 
     public function __construct()
     {
@@ -56,15 +56,15 @@ class Activity
     /**
      * @return Collection|Patient[]
      */
-    public function getActivity(): Collection
+    public function getPatient(): Collection
     {
-        return $this->activity;
+        return $this->patient;
     }
 
-    public function addActivity(Patient $patient): self
+    public function addPatient(Patient $patient): self
     {
-        if (!$this->activity->contains($patient)) {
-            $this->activity[] = $patient;
+        if (!$this->patient->contains($patient)) {
+            $this->patient[] = $patient;
             $patient->setActivity($this);
         }
         return $this;
@@ -72,7 +72,7 @@ class Activity
 
     public function removeActivity(Patient $patient): self
     {
-        if ($this->activity->removeElement($patient)) {
+        if ($this->patient->removeElement($patient)) {
             // set the owning side to null (unless already changed)
             if ($patient->getActivity() === $this) {
                 $patient->setActivity(null);

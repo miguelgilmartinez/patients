@@ -20,6 +20,11 @@ class Patient
     private $patientUUID;
 
     /**
+     * @ORM\OneToMany(targetEntity=HealthData::class, mappedBy="health_Data_uuid", orphanRemoval=true)
+     */
+    private $healthData;  
+
+    /**
      * @ORM\Column(type="uuid")
      * Maps to User.userUUID
      */
@@ -79,11 +84,6 @@ class Patient
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $operatorPhone;
-
-    /**
-     * @ORM\OneToMany(targetEntity=HealthData::class, mappedBy="patient", orphanRemoval=true)
-     */
-    private $healthData;
 
     public function __construct()
     {

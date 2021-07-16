@@ -25,10 +25,14 @@ class HealthData
     private $patient;
 
     /**
-     * There is no automated procedure to create a UUID, so we need to do it manually.
-     */ 
-    public function __construct(){
-        $this->healthDataUUID = Uuid::v4();
+     * UUID and Patient come from Message Broker.
+     */
+    public function __construct(
+        \Symfony\Component\Uid\UuidV4 $uuid,
+        \App\Entity\Patient $patient
+    ) {
+        $this->healthDataUUID = $uuid;
+        $this->patient = $patient;
     }
 
     public function getHealthDataUUID()
@@ -36,21 +40,13 @@ class HealthData
         return $this->healthDataUUID;
     }
 
-    public function setHealthDataUUID($healthDataUUID): self
-    {
-        $this->healthDataUUID = $healthDataUUID;
-        return $this;
-    }
-
     public function getPatient(): ?Patient
     {
         return $this->patient;
     }
 
-    public function setPatient(?Patient $patient): self
+    public function setPatient(?Patient $patient): void
     {
         $this->patient = $patient;
-
-        return $this;
     }
 }

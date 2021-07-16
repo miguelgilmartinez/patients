@@ -12,7 +12,7 @@ Patient:
                 type: "String"
             gender:
                 type: "String"
-            dateOfBirth:
+            birthDate:
                 type: "String"
             activity:
                 type: "Activity"

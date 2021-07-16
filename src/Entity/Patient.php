@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity; 
+namespace App\Entity;
 
 use App\Repository\PatientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,7 +22,7 @@ class Patient
     /**
      * @ORM\OneToMany(targetEntity=HealthData::class, mappedBy="health_Data_uuid", orphanRemoval=true)
      */
-    private $healthData;  
+    private $healthData;
 
     /**
      * @ORM\Column(type="uuid")
@@ -48,7 +48,7 @@ class Patient
     /**
      * @ORM\Column(type="date")
      */
-    private $dateOfBirth;
+    private $birthDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="hobbies")
@@ -85,10 +85,16 @@ class Patient
      */
     private $operatorPhone;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address;
+
     public function __construct()
     {
         $this->patientUUID = Uuid::v4();
         $this->healthData = new ArrayCollection();
+        $this->datetimeAdded = new \DateTime();
     }
 
     public function getPatientUuid()
@@ -154,18 +160,17 @@ class Patient
     public function setGender(string $gender): self
     {
         $this->gender = $gender;
-
         return $this;
     }
 
-    public function getDateOfBirth(): ?\DateTimeInterface
+    public function getBirthDate(): ?\DateTimeInterface
     {
-        return $this->dateOfBirth;
+        return $this->birthDate;
     }
 
-    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
+    public function setBirthDate(\DateTimeInterface $birthDate): self
     {
-        $this->dateOfBirth = $dateOfBirth;
+        $this->birthDate = $birthDate;
         return $this;
     }
 
@@ -188,7 +193,6 @@ class Patient
     public function setHobbies(?string $hobbies): self
     {
         $this->hobbies = $hobbies;
-
         return $this;
     }
 
@@ -200,7 +204,6 @@ class Patient
     public function setEmergencyPhone(?string $emergencyPhone): self
     {
         $this->emergencyPhone = $emergencyPhone;
-
         return $this;
     }
 
@@ -212,7 +215,6 @@ class Patient
     public function setEmergencyName(string $emergencyName): self
     {
         $this->emergencyName = $emergencyName;
-
         return $this;
     }
 
@@ -224,7 +226,6 @@ class Patient
     public function setDatetimeAdded(\DateTimeInterface $datetimeAdded): self
     {
         $this->datetimeAdded = $datetimeAdded;
-
         return $this;
     }
 
@@ -236,7 +237,6 @@ class Patient
     public function setFriendPhone(?string $friendPhone): self
     {
         $this->friendPhone = $friendPhone;
-
         return $this;
     }
 
@@ -248,7 +248,6 @@ class Patient
     public function setOperatorPhone(string $operatorPhone): self
     {
         $this->operatorPhone = $operatorPhone;
-
         return $this;
     }
 
@@ -266,7 +265,6 @@ class Patient
             $this->healthData[] = $healthData;
             $healthData->setPatient($this);
         }
-
         return $this;
     }
 
@@ -278,7 +276,17 @@ class Patient
                 $healthData->setPatient(null);
             }
         }
+        return $this;
+    }
 
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
         return $this;
     }
 }

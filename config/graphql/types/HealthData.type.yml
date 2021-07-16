@@ -1,0 +1,9 @@
+HealthData:
+    type: object
+    config:
+        fields:
+            healthDataUUID:
+                type: "ID!"
+            patient:
+                type: "ID!"
+                

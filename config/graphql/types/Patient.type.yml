@@ -29,5 +29,5 @@ Patient:
             operatorPhone:
                 type: "String"
             healthData:
-                type: "[healthData]"
+                type: "[HealthData]"
                 

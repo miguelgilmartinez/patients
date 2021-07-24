@@ -15,6 +15,7 @@ class Healthdata implements MessageHandlerInterface
      */
     public function __invoke(HealthdataDTO $message)
     {
-        
+        error_log("dsdsdsdsdsadlj a,skdj lkjd lkjd lksa");
+        die("for tour loveeee");
     }
 }

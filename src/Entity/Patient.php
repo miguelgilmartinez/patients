@@ -20,11 +20,6 @@ class Patient
     private $patientUUID;
 
     /**
-     * @ORM\OneToMany(targetEntity=HealthData::class, mappedBy="health_Data_uuid", orphanRemoval=true)
-     */
-    private $healthData;
-
-    /**
      * @ORM\Column(type="uuid")
      * Maps to User.userUUID
      */
@@ -93,7 +88,6 @@ class Patient
     public function __construct()
     {
         $this->patientUUID = Uuid::v4();
-        $this->healthData = new ArrayCollection();
         $this->datetimeAdded = new \DateTime();
     }
 
@@ -248,34 +242,6 @@ class Patient
     public function setOperatorPhone(string $operatorPhone): self
     {
         $this->operatorPhone = $operatorPhone;
-        return $this;
-    }
-
-    /**
-     * @return Collection|HealthData[]
-     */
-    public function getHealthData(): Collection
-    {
-        return $this->healthData;
-    }
-
-    public function addHealthData(HealthData $healthData): self
-    {
-        if (!$this->healthData->contains($healthData)) {
-            $this->healthData[] = $healthData;
-            $healthData->setPatient($this);
-        }
-        return $this;
-    }
-
-    public function removeHealthData(HealthData $healthData): self
-    {
-        if ($this->healthData->removeElement($healthData)) {
-            // set the owning side to null (unless already changed)
-            if ($healthData->getPatient() === $this) {
-                $healthData->setPatient(null);
-            }
-        }
         return $this;
     }
 
